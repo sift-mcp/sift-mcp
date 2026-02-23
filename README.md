@@ -20,9 +20,33 @@ Ingest, analyze, query history, detect flaky tests, track severity trends.
 
 ### Claude Code Integration
 
-Build, configure `.mcp.json`, run inside Claude Code.
+One command to install. Claude Code gets 6 tools automatically.
 
 ![Claude Code Integration](demo/claude-code-demo.gif)
+
+### Flaky Test Detection
+
+Two CI runs with different failures — sift identifies which tests are flaky.
+
+![Flaky Test Detection](demo/flaky-demo.gif)
+
+### Severity Trend
+
+A week of CI runs — see how critical vs high failures shift over time.
+
+![Severity Trend](demo/trend-demo.gif)
+
+### Works with Any Test Runner
+
+pytest, Go test, Maven, Gradle — anything that outputs JUnit XML.
+
+![pytest Demo](demo/pytest-demo.gif)
+
+### Claude Code Triage Conversation
+
+200+ failures reduced to 2 actionable fixes in one conversation.
+
+![Claude Code Triage](demo/claude-convo-demo.gif)
 
 ## Quick Install
 
