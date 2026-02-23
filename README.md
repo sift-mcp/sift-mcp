@@ -10,43 +10,43 @@ MCP server for test intelligence. Parses JUnit XML reports, extracts root causes
 
 cBioPortal test report: 220 failures, 2 root causes, 88% cascade.
 
-![Root Cause Extraction + Cascade Detection](demo/sift-demo.gif)
+![Root Cause Extraction + Cascade Detection](docs/images/sift-demo.gif)
 
 ### All 6 MCP Tools
 
 Ingest, analyze, query history, detect flaky tests, track severity trends.
 
-![All Tools](demo/all-tools-demo.gif)
+![All Tools](docs/images/all-tools-demo.gif)
 
 ### Claude Code Integration
 
 One command to install. Claude Code gets 6 tools automatically.
 
-![Claude Code Integration](demo/claude-code-demo.gif)
+![Claude Code Integration](docs/images/claude-code-demo.gif)
 
 ### Flaky Test Detection
 
 Two CI runs with different failures — sift identifies which tests are flaky.
 
-![Flaky Test Detection](demo/flaky-demo.gif)
+![Flaky Test Detection](docs/images/flaky-demo.gif)
 
 ### Severity Trend
 
 A week of CI runs — see how critical vs high failures shift over time.
 
-![Severity Trend](demo/trend-demo.gif)
+![Severity Trend](docs/images/trend-demo.gif)
 
 ### Works with Any Test Runner
 
 pytest, Go test, Maven, Gradle — anything that outputs JUnit XML.
 
-![pytest Demo](demo/pytest-demo.gif)
+![pytest Demo](docs/images/pytest-demo.gif)
 
 ### Claude Code Triage Conversation
 
 200+ failures reduced to 2 actionable fixes in one conversation.
 
-![Claude Code Triage](demo/claude-convo-demo.gif)
+![Claude Code Triage](docs/images/claude-convo-demo.gif)
 
 ## Quick Install
 
