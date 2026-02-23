@@ -20,8 +20,8 @@ echo "Root Cause Extraction + Cascade Failure Detection"
 echo ""
 pause 2
 
-echo "# Build the binary"
-type_cmd "go build -o sift ./cmd/server"
+echo "# Install sift as an MCP server in one command"
+type_cmd "claude mcp add sift-mcp -- npx sift-mcp"
 pause 1
 
 echo ""

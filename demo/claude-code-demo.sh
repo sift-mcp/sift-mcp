@@ -27,33 +27,15 @@ echo "=== Connecting Sift to Claude Code ==="
 echo ""
 pause 2
 
-echo "Step 1: Build the Sift binary"
+echo "Step 1: Add Sift as an MCP server"
 echo ""
-type_cmd "go build -o sift ./cmd/server"
+type_cmd "claude mcp add sift-mcp -- npx sift-mcp"
 pause 1
-echo "  Done. Single binary, no dependencies."
+echo "  Done. Sift is now available inside Claude Code."
 echo ""
 pause 2
 
-echo "Step 2: Add MCP configuration"
-echo ""
-echo "  Add this to .mcp.json in your project root:"
-echo ""
-echo '  {
-    "mcpServers": {
-      "sift": {
-        "type": "stdio",
-        "command": "/absolute/path/to/sift",
-        "env": {
-          "SIFT_DB_PATH": "/absolute/path/to/sift.db"
-        }
-      }
-    }
-  }'
-echo ""
-pause 3
-
-echo "Step 3: Restart Claude Code - tools appear automatically"
+echo "Step 2: Restart Claude Code - tools appear automatically"
 echo ""
 echo "  Claude Code now has 6 new tools:"
 echo "    - mcp__sift__ingest_report"
@@ -65,7 +47,7 @@ echo "    - mcp__sift__get_severity_trend"
 echo ""
 pause 3
 
-echo "Step 4: Use it naturally"
+echo "Step 3: Use it naturally"
 echo ""
 echo '  You say: "Run my tests and analyze the failures with Sift"'
 echo ""
