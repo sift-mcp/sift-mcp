@@ -8,19 +8,19 @@ MCP server for test intelligence. Parses JUnit XML reports, extracts root causes
 
 cBioPortal test report: 220 failures, 2 root causes, 88% cascade.
 
-[![asciicast](https://asciinema.org/a/WaWGNoqFZqqx2r3E.svg)](https://asciinema.org/a/WaWGNoqFZqqx2r3E)
+![Root Cause Extraction + Cascade Detection](demo/sift-demo.gif)
 
 ### All 6 MCP Tools
 
 Ingest, analyze, query history, detect flaky tests, track severity trends.
 
-[![All Tools](https://asciinema.org/a/qzEMbRIx6S1r3lyu.svg)](https://asciinema.org/a/qzEMbRIx6S1r3lyu)
+![All Tools](demo/all-tools-demo.gif)
 
 ### Claude Code Integration
 
 Build, configure `.mcp.json`, run inside Claude Code.
 
-[![Claude Code](https://asciinema.org/a/bJehB7mGfk8ERUpA.svg)](https://asciinema.org/a/bJehB7mGfk8ERUpA)
+![Claude Code Integration](demo/claude-code-demo.gif)
 
 ## Quick Install
 
