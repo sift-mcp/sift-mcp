@@ -18,7 +18,7 @@ A commercial license is required if your organization meets any of the following
 
 ## Pricing
 
-Contact **hello@sift-mcp.dev** to discuss licensing for your organization.
+Contact **michael@lunasys.sh** to discuss licensing for your organization.
 
 ## Free use
 
