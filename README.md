@@ -1,5 +1,7 @@
 # Sift
 
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](LICENSE) [![Commercial License](https://img.shields.io/badge/Commercial_License-available-green.svg)](COMMERCIAL_LICENSE.md)
+
 MCP server for test intelligence. Parses JUnit XML reports, extracts root causes, detects cascade failures, deduplicates errors via fingerprinting, and tracks failure history in SQLite. Exposes results as 6 MCP tools that return structured JSON to AI agents.
 
 ## Demos
