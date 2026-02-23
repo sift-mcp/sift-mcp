@@ -15,7 +15,7 @@
     "test-intelligence",
     "claude"
   ],
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/sift-mcp/sift-mcp"
