@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+
+"use strict";
+
+const path = require("path");
+const { spawnSync } = require("child_process");
+
+const binaryName = process.platform === "win32" ? "sift.exe" : "sift";
+const binaryPath = path.join(__dirname, binaryName);
+
+const result = spawnSync(binaryPath, process.argv.slice(2), {
+  stdio: "inherit",
+});
+
+if (result.error) {
+  if (result.error.code === "ENOENT") {
+    console.error(
+      "sift binary not found. Run `npm rebuild sift-mcp` or reinstall."
+    );
+  } else {
+    console.error("Failed to start sift:", result.error.message);
+  }
+  process.exit(1);
+}
+
+process.exit(result.status ?? 1);

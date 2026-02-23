@@ -1,0 +1,19 @@
+# Binaries
+sift
+jintelligence
+*.exe
+
+# SQLite
+*.db
+*.db-shm
+*.db-wal
+
+# Claude Code
+.claude/
+.mcp.json
+
+# Development artifacts
+prompt.xml
+PRD.md
+cbioportal/
+demo/
