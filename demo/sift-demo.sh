@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-# Typing simulation
+# Typing simulation (actually runs the command)
 type_cmd() {
     local cmd="$1"
     for (( i=0; i<${#cmd}; i++ )); do
@@ -10,6 +10,16 @@ type_cmd() {
     done
     echo
     eval "$cmd"
+}
+
+# Typing simulation (display only, does not execute)
+type_show() {
+    local cmd="$1"
+    for (( i=0; i<${#cmd}; i++ )); do
+        printf '%s' "${cmd:$i:1}"
+        sleep 0.04
+    done
+    echo
 }
 
 pause() { sleep "${1:-1.5}"; }
@@ -21,7 +31,8 @@ echo ""
 pause 2
 
 echo "# Install sift as an MCP server in one command"
-type_cmd "claude mcp add sift-mcp -- npx sift-mcp"
+type_show "claude mcp add sift-mcp -- npx sift-mcp"
+echo "Added stdio MCP server sift-mcp with command: npx sift-mcp"
 pause 1
 
 echo ""
