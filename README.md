@@ -1,4 +1,5 @@
-# Sift
+<img width="893" height="711" alt="Screenshot From 2026-02-23 21-21-39-Picsart-BackgroundRemover" src="https://github.com/user-attachments/assets/cf58e4f3-6fc3-4afe-b066-6f894f1c8bec" />
+
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](LICENSE) [![Commercial License](https://img.shields.io/badge/Commercial_License-available-green.svg)](COMMERCIAL_LICENSE.md)
 
