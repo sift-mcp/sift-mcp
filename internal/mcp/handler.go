@@ -16,14 +16,12 @@ type ToolFunc func(ctx context.Context, args map[string]interface{}) ToolsCallRe
 type Handler struct {
 	tools    map[string]Tool
 	handlers map[string]ToolFunc
-	readOnly bool
 }
 
-func NewHandler(readOnly bool) *Handler {
+func NewHandler() *Handler {
 	return &Handler{
 		tools:    make(map[string]Tool),
 		handlers: make(map[string]ToolFunc),
-		readOnly: readOnly,
 	}
 }
 
@@ -127,8 +125,4 @@ func (h *Handler) handlePing(req *Request) *Response {
 		Result:  struct{}{},
 		ID:      req.ID,
 	}
-}
-
-func (h *Handler) IsReadOnly() bool {
-	return h.readOnly
 }

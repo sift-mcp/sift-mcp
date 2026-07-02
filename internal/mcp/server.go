@@ -10,31 +10,14 @@ import (
 	"sync"
 )
 
-type TransportType string
-
-const (
-	TransportStdio TransportType = "stdio"
-	TransportHTTP  TransportType = "http"
-)
-
-type ServerConfig struct {
-	Transport TransportType
-	ReadOnly  bool
-	Port      int
-}
-
 type Server struct {
-	config  ServerConfig
 	handler *Handler
 	mu      sync.RWMutex
 	running bool
 }
 
-func NewServer(handler *Handler, cfg ServerConfig) *Server {
-	return &Server{
-		config:  cfg,
-		handler: handler,
-	}
+func NewServer(handler *Handler) *Server {
+	return &Server{handler: handler}
 }
 
 func (s *Server) Start(ctx context.Context) error {
@@ -52,14 +35,7 @@ func (s *Server) Start(ctx context.Context) error {
 		s.mu.Unlock()
 	}()
 
-	switch s.config.Transport {
-	case TransportStdio:
-		return s.serveStdio(ctx)
-	case TransportHTTP:
-		return s.serveHTTP(ctx)
-	default:
-		return fmt.Errorf("unsupported transport: %s", s.config.Transport)
-	}
+	return s.serveStdio(ctx)
 }
 
 type readResult struct {
@@ -122,12 +98,4 @@ func (s *Server) writeResponse(w *bufio.Writer, resp *Response) {
 	w.Write(data)
 	w.WriteByte('\n')
 	w.Flush()
-}
-
-func (s *Server) serveHTTP(ctx context.Context) error {
-	return fmt.Errorf("HTTP+SSE transport not yet implemented")
-}
-
-func (s *Server) IsReadOnly() bool {
-	return s.config.ReadOnly
 }

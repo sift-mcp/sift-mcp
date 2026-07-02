@@ -47,15 +47,10 @@ func (f *Factory) CreateMCPServer() *mcp.Server {
 	analysisService := f.CreateAnalysisService()
 	reportRepo := f.CreateReportRepository()
 
-	handler := mcp.NewHandler(false)
+	handler := mcp.NewHandler()
 
-	tools := mcp.NewTools(junitParser, analysisService, reportRepo, false)
+	tools := mcp.NewTools(junitParser, analysisService, reportRepo)
 	tools.RegisterAll(handler)
 
-	cfg := mcp.ServerConfig{
-		Transport: mcp.TransportStdio,
-		ReadOnly:  false,
-	}
-
-	return mcp.NewServer(handler, cfg)
+	return mcp.NewServer(handler)
 }
