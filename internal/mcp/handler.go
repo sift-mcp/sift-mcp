@@ -33,11 +33,13 @@ func (h *Handler) RegisterTool(tool Tool, handler ToolFunc) {
 }
 
 func (h *Handler) Handle(ctx context.Context, req *Request) *Response {
+	if req.IsNotification() {
+		return nil
+	}
+
 	switch req.Method {
 	case "initialize":
 		return h.handleInitialize(req)
-	case "initialized":
-		return h.handleInitialized(req)
 	case "tools/list":
 		return h.handleToolsList(req)
 	case "tools/call":
@@ -68,14 +70,6 @@ func (h *Handler) handleInitialize(req *Request) *Response {
 	return &Response{
 		JSONRPC: "2.0",
 		Result:  result,
-		ID:      req.ID,
-	}
-}
-
-func (h *Handler) handleInitialized(req *Request) *Response {
-	return &Response{
-		JSONRPC: "2.0",
-		Result:  struct{}{},
 		ID:      req.ID,
 	}
 }

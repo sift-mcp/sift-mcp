@@ -9,6 +9,10 @@ type Request struct {
 	ID      interface{}     `json:"id"`
 }
 
+func (r *Request) IsNotification() bool {
+	return r.ID == nil
+}
+
 type Response struct {
 	JSONRPC string      `json:"jsonrpc"`
 	Result  interface{} `json:"result,omitempty"`
