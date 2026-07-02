@@ -125,10 +125,10 @@ func (m *mockRepo) GetFailureHistory(ctx context.Context, testName string, limit
 	return results, nil
 }
 
-func (m *mockRepo) GetTestFailureCounts(ctx context.Context, testName string, since time.Time) (int, error) {
+func (m *mockRepo) GetTestFailureCounts(ctx context.Context, testName string, since time.Time, excludeReportID string) (int, error) {
 	count := 0
 	for _, r := range m.storedReports {
-		if r.Timestamp.Before(since) {
+		if r.Timestamp.Before(since) || r.ID == excludeReportID {
 			continue
 		}
 		for _, s := range r.Suites {

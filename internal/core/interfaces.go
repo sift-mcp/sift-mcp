@@ -122,6 +122,7 @@ type FailedTestInfo struct {
 	Severity            FailureSeverity   `json:"severity"`
 	HistoricalContext   *HistoricalContext `json:"historical_context,omitempty"`
 	CleanedRootCause    string            `json:"-"`
+	NormalizedTrace     string            `json:"-"`
 	IsCascade           bool              `json:"-"`
 	CascadeSourceTest   string            `json:"-"`
 }
@@ -154,7 +155,7 @@ type ReportRepository interface {
 	GetByID(ctx context.Context, id string) (*TestReport, error)
 	GetByTimeRange(ctx context.Context, start, end time.Time) ([]*TestReport, error)
 	GetFailureHistory(ctx context.Context, testName string, limit int) ([]*TestReport, error)
-	GetTestFailureCounts(ctx context.Context, testName string, since time.Time) (int, error)
+	GetTestFailureCounts(ctx context.Context, testName string, since time.Time, excludeReportID string) (int, error)
 	GetTestLastSuccess(ctx context.Context, testName string) (time.Time, error)
 	UpsertErrorFingerprint(ctx context.Context, fingerprint string, normalizedTrace string, timestamp time.Time) error
 	GetErrorFingerprint(ctx context.Context, fingerprint string) (int, time.Time, time.Time, error)

@@ -232,11 +232,11 @@ func (r *ReportRepository) Delete(ctx context.Context, id string) error {
 	return tx.Commit()
 }
 
-func (r *ReportRepository) GetTestFailureCounts(ctx context.Context, testName string, since time.Time) (int, error) {
+func (r *ReportRepository) GetTestFailureCounts(ctx context.Context, testName string, since time.Time, excludeReportID string) (int, error) {
 	var count int
 	err := r.db.QueryRowContext(ctx,
-		`SELECT COUNT(*) FROM test_failures WHERE test_name = ? AND timestamp >= ?`,
-		testName, since,
+		`SELECT COUNT(*) FROM test_failures WHERE test_name = ? AND timestamp >= ? AND report_id != ?`,
+		testName, since, excludeReportID,
 	).Scan(&count)
 	if err != nil {
 		return 0, fmt.Errorf("failed to count test failures: %w", err)
