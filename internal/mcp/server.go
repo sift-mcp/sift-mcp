@@ -85,7 +85,9 @@ func (s *Server) serveStdio(ctx context.Context) error {
 			}
 
 			resp := s.handler.Handle(ctx, &req)
-			s.writeResponse(writer, resp)
+			if resp != nil {
+				s.writeResponse(writer, resp)
+			}
 		}
 	}
 }
