@@ -8,6 +8,9 @@ jintelligence
 *.db-shm
 *.db-wal
 
+# Build output
+dist/
+
 # Development artifacts
 PRD.md
 cbioportal/

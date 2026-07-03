@@ -29,13 +29,15 @@ builds:
 
 archives:
   - id: sift
-    builds:
+    ids:
       - sift
     name_template: "sift_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
-    format: tar.gz
+    formats:
+      - tar.gz
     format_overrides:
       - goos: windows
-        format: zip
+        formats:
+          - zip
 
 checksum:
   name_template: "checksums.txt"
