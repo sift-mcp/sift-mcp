@@ -79,16 +79,16 @@ type CascadeSummary struct {
 }
 
 type AnalysisResult struct {
-	ReportID       string           `json:"report_id"`
-	TotalTests     int              `json:"total_tests"`
-	Failed         int              `json:"failed"`
-	Passed         int              `json:"passed"`
-	Skipped        int              `json:"skipped"`
-	FailureGroups  []FailureGroup   `json:"failure_groups"`
-	Delta          *RunDelta        `json:"delta,omitempty"`
-	CascadeSummary *CascadeSummary  `json:"cascade_summary,omitempty"`
-	Summary        string           `json:"summary"`
-	ProcessedAt    time.Time        `json:"processed_at"`
+	ReportID       string          `json:"report_id"`
+	TotalTests     int             `json:"total_tests"`
+	Failed         int             `json:"failed"`
+	Passed         int             `json:"passed"`
+	Skipped        int             `json:"skipped"`
+	FailureGroups  []FailureGroup  `json:"failure_groups"`
+	Delta          *RunDelta       `json:"delta,omitempty"`
+	CascadeSummary *CascadeSummary `json:"cascade_summary,omitempty"`
+	Summary        string          `json:"summary"`
+	ProcessedAt    time.Time       `json:"processed_at"`
 
 	FailedTests []FailedTestInfo `json:"-"`
 }
@@ -115,16 +115,16 @@ type RunDelta struct {
 }
 
 type FailedTestInfo struct {
-	Name                string            `json:"name"`
-	Classname           string            `json:"classname"`
-	ErrorClassification string            `json:"error_classification"`
-	ErrorSummary        string            `json:"error_summary"`
-	Severity            FailureSeverity   `json:"severity"`
+	Name                string             `json:"name"`
+	Classname           string             `json:"classname"`
+	ErrorClassification string             `json:"error_classification"`
+	ErrorSummary        string             `json:"error_summary"`
+	Severity            FailureSeverity    `json:"severity"`
 	HistoricalContext   *HistoricalContext `json:"historical_context,omitempty"`
-	CleanedRootCause    string            `json:"-"`
-	NormalizedTrace     string            `json:"-"`
-	IsCascade           bool              `json:"-"`
-	CascadeSourceTest   string            `json:"-"`
+	CleanedRootCause    string             `json:"-"`
+	NormalizedTrace     string             `json:"-"`
+	IsCascade           bool               `json:"-"`
+	CascadeSourceTest   string             `json:"-"`
 }
 
 type HistoricalContext struct {

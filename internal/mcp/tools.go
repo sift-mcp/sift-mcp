@@ -379,15 +379,15 @@ func (t *Tools) getReportStats(ctx context.Context, args map[string]interface{})
 
 	result := map[string]interface{}{
 		"total_reports_all_time": totalCount,
-		"reports_in_range":      len(reports),
-		"time_range":            timeRange,
-		"total_tests":           totalTests,
-		"total_passed":          totalPassed,
-		"total_failed":          totalFailed,
-		"total_errored":         totalErrored,
-		"total_skipped":         totalSkipped,
-		"pass_rate_pct":         fmt.Sprintf("%.2f", passRate),
-		"top_failing_tests":     topFailing,
+		"reports_in_range":       len(reports),
+		"time_range":             timeRange,
+		"total_tests":            totalTests,
+		"total_passed":           totalPassed,
+		"total_failed":           totalFailed,
+		"total_errored":          totalErrored,
+		"total_skipped":          totalSkipped,
+		"pass_rate_pct":          fmt.Sprintf("%.2f", passRate),
+		"top_failing_tests":      topFailing,
 	}
 
 	data, _ := json.MarshalIndent(result, "", "  ")

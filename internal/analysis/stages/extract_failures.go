@@ -80,4 +80,3 @@ func extractErrorType(failure *core.TestFailure) string {
 
 	return "UnknownError"
 }
-
