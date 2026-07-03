@@ -116,7 +116,21 @@ func (p *JUnitParser) ParseStream(reader io.Reader) (*core.TestReport, error) {
 
 	report.Passed = report.TotalTests - report.Failed - report.Errored - report.Skipped
 
+	if latest := latestSuiteTimestamp(report.Suites); !latest.IsZero() {
+		report.Timestamp = latest
+	}
+
 	return report, nil
+}
+
+func latestSuiteTimestamp(suites []core.TestSuite) time.Time {
+	var latest time.Time
+	for _, suite := range suites {
+		if suite.Timestamp.After(latest) {
+			latest = suite.Timestamp
+		}
+	}
+	return latest
 }
 
 func (p *JUnitParser) convertSuite(raw junitTestSuite) core.TestSuite {
@@ -131,11 +145,7 @@ func (p *JUnitParser) convertSuite(raw junitTestSuite) core.TestSuite {
 		Cases:    make([]core.TestCase, 0, len(raw.Cases)),
 	}
 
-	if raw.Timestamp != "" {
-		if ts, err := time.Parse("2006-01-02T15:04:05", raw.Timestamp); err == nil {
-			suite.Timestamp = ts
-		}
-	}
+	suite.Timestamp = parseSuiteTimestamp(raw.Timestamp)
 
 	for _, rawCase := range raw.Cases {
 		suite.Cases = append(suite.Cases, p.convertCase(rawCase))
@@ -175,6 +185,24 @@ func (p *JUnitParser) convertCase(raw junitTestCase) core.TestCase {
 	}
 
 	return tc
+}
+
+var suiteTimestampLayouts = []string{
+	time.RFC3339,
+	"2006-01-02T15:04:05",
+	"2006-01-02 15:04:05",
+}
+
+func parseSuiteTimestamp(raw string) time.Time {
+	if raw == "" {
+		return time.Time{}
+	}
+	for _, layout := range suiteTimestampLayouts {
+		if ts, err := time.Parse(layout, raw); err == nil {
+			return ts
+		}
+	}
+	return time.Time{}
 }
 
 func parseDuration(raw string) time.Duration {

@@ -22,12 +22,10 @@ var normalizationPatterns = []*regexp.Regexp{
 	regexp.MustCompile(`\s+`),
 }
 
-type FingerprintStage struct {
-	repo core.ReportRepository
-}
+type FingerprintStage struct{}
 
-func NewFingerprintStage(repo core.ReportRepository) *FingerprintStage {
-	return &FingerprintStage{repo: repo}
+func NewFingerprintStage() *FingerprintStage {
+	return &FingerprintStage{}
 }
 
 func (s *FingerprintStage) Name() string {
@@ -45,16 +43,12 @@ func (s *FingerprintStage) Process(ctx context.Context, report *core.TestReport,
 		}
 
 		normalized := NormalizeStackTrace(stackTrace)
-		fingerprint := HashFingerprint(normalized)
 
 		if failedTest.HistoricalContext == nil {
 			failedTest.HistoricalContext = &core.HistoricalContext{}
 		}
-		failedTest.HistoricalContext.ErrorFingerprint = fingerprint
-
-		if s.repo != nil {
-			s.repo.UpsertErrorFingerprint(ctx, fingerprint, normalized, report.Timestamp)
-		}
+		failedTest.HistoricalContext.ErrorFingerprint = HashFingerprint(normalized)
+		failedTest.NormalizedTrace = normalized
 	}
 }
 

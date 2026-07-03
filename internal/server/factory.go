@@ -25,7 +25,7 @@ func (f *Factory) CreateAnalysisPipeline(repo core.ReportRepository) *analysis.P
 	return analysis.NewPipeline(
 		stages.NewExtractFailuresStage(),
 		stages.NewRootCauseExtractStage(),
-		stages.NewFingerprintStage(repo),
+		stages.NewFingerprintStage(),
 		stages.NewEnrichHistoryStage(repo),
 		stages.NewCascadeDetectStage(),
 		stages.NewSummarizeStage(repo),

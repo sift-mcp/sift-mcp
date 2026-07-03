@@ -24,9 +24,11 @@ func (s *EnrichHistoryStage) Process(ctx context.Context, report *core.TestRepor
 		return
 	}
 
-	now := time.Now()
-	oneDayAgo := now.Add(-24 * time.Hour)
-	sevenDaysAgo := now.Add(-7 * 24 * time.Hour)
+	asOf := report.Timestamp
+	oneDayAgo := asOf.Add(-24 * time.Hour)
+	sevenDaysAgo := asOf.Add(-7 * 24 * time.Hour)
+
+	totalReports, _ := s.repo.Count(ctx)
 
 	for i := range result.FailedTests {
 		failedTest := &result.FailedTests[i]
@@ -35,12 +37,12 @@ func (s *EnrichHistoryStage) Process(ctx context.Context, report *core.TestRepor
 			failedTest.HistoricalContext = &core.HistoricalContext{}
 		}
 
-		count24h, err := s.repo.GetTestFailureCounts(ctx, failedTest.Name, oneDayAgo)
+		count24h, err := s.repo.GetTestFailureCounts(ctx, failedTest.Name, oneDayAgo, report.ID)
 		if err == nil {
 			failedTest.HistoricalContext.FailureCount24h = count24h
 		}
 
-		count7d, err := s.repo.GetTestFailureCounts(ctx, failedTest.Name, sevenDaysAgo)
+		count7d, err := s.repo.GetTestFailureCounts(ctx, failedTest.Name, sevenDaysAgo, report.ID)
 		if err == nil {
 			failedTest.HistoricalContext.FailureCount7d = count7d
 		}
@@ -59,7 +61,6 @@ func (s *EnrichHistoryStage) Process(ctx context.Context, report *core.TestRepor
 			}
 		}
 
-		totalReports, _ := s.repo.Count(ctx)
 		if totalReports > 0 {
 			failureReports, _ := s.repo.GetFailureHistory(ctx, failedTest.Name, int(totalReports))
 			passCount := int(totalReports) - len(failureReports)

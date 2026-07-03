@@ -2,6 +2,7 @@ package parser
 
 import (
 	"testing"
+	"time"
 
 	"sift/internal/core"
 )
@@ -172,6 +173,72 @@ func TestParseDuration(t *testing.T) {
 	addCase := report.Suites[0].Cases[0]
 	if addCase.Duration.Seconds() != 0.3 {
 		t.Errorf("expected case duration 0.3s, got %v", addCase.Duration)
+	}
+}
+
+func TestParseSuiteTimestampSetsReportTimestamp(t *testing.T) {
+	p := NewJUnitParser()
+
+	xml := []byte(`<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="A" tests="1" timestamp="2026-06-28T10:00:00">
+    <testcase name="t1" classname="C" time="0.1"/>
+  </testsuite>
+  <testsuite name="B" tests="1" timestamp="2026-06-29T11:30:00">
+    <testcase name="t2" classname="C" time="0.1"/>
+  </testsuite>
+</testsuites>`)
+
+	report, err := p.Parse(xml)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+
+	want := time.Date(2026, 6, 29, 11, 30, 0, 0, time.UTC)
+	if !report.Timestamp.Equal(want) {
+		t.Errorf("expected report timestamp %v, got %v", want, report.Timestamp)
+	}
+}
+
+func TestParseSuiteTimestampLayouts(t *testing.T) {
+	tests := []struct {
+		input string
+		want  time.Time
+	}{
+		{"2026-06-28T10:00:00", time.Date(2026, 6, 28, 10, 0, 0, 0, time.UTC)},
+		{"2026-06-28T10:00:00Z", time.Date(2026, 6, 28, 10, 0, 0, 0, time.UTC)},
+		{"2026-06-28T10:00:00+02:00", time.Date(2026, 6, 28, 8, 0, 0, 0, time.UTC)},
+		{"2026-06-28T10:00:00.123456", time.Date(2026, 6, 28, 10, 0, 0, 123456000, time.UTC)},
+		{"2026-06-28 10:00:00", time.Date(2026, 6, 28, 10, 0, 0, 0, time.UTC)},
+	}
+
+	for _, tc := range tests {
+		got := parseSuiteTimestamp(tc.input)
+		if !got.Equal(tc.want) {
+			t.Errorf("parseSuiteTimestamp(%q) = %v, want %v", tc.input, got, tc.want)
+		}
+	}
+
+	if !parseSuiteTimestamp("").IsZero() {
+		t.Error("expected zero time for empty input")
+	}
+	if !parseSuiteTimestamp("garbage").IsZero() {
+		t.Error("expected zero time for unparseable input")
+	}
+}
+
+func TestParseWithoutSuiteTimestampFallsBackToNow(t *testing.T) {
+	p := NewJUnitParser()
+
+	before := time.Now()
+	report, err := p.Parse(singleSuiteXML)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	after := time.Now()
+
+	if report.Timestamp.Before(before) || report.Timestamp.After(after) {
+		t.Errorf("expected timestamp near now, got %v", report.Timestamp)
 	}
 }
 
