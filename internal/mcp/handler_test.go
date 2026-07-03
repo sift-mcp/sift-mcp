@@ -6,7 +6,7 @@ import (
 )
 
 func newTestHandler() *Handler {
-	return NewHandler(false)
+	return NewHandler()
 }
 
 func TestHandleNotificationReturnsNoResponse(t *testing.T) {

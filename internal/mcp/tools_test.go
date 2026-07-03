@@ -167,7 +167,7 @@ func setupTools() (*Tools, *mockRepo) {
 	repo := newMockRepo()
 	parser := &mockParser{}
 	service := &mockService{}
-	tools := NewTools(parser, service, repo, false)
+	tools := NewTools(parser, service, repo)
 	return tools, repo
 }
 

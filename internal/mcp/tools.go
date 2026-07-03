@@ -13,18 +13,16 @@ import (
 )
 
 type Tools struct {
-	parser   core.ReportParser
-	service  core.AnalysisService
-	repo     core.ReportRepository
-	readOnly bool
+	parser  core.ReportParser
+	service core.AnalysisService
+	repo    core.ReportRepository
 }
 
-func NewTools(parser core.ReportParser, service core.AnalysisService, repo core.ReportRepository, readOnly bool) *Tools {
+func NewTools(parser core.ReportParser, service core.AnalysisService, repo core.ReportRepository) *Tools {
 	return &Tools{
-		parser:   parser,
-		service:  service,
-		repo:     repo,
-		readOnly: readOnly,
+		parser:  parser,
+		service: service,
+		repo:    repo,
 	}
 }
 

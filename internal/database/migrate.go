@@ -1,46 +1,6 @@
 package database
 
-import (
-	"fmt"
-	"time"
-)
-
-type TestReportRecord struct {
-	ID         string    `json:"id"`
-	Source     string    `json:"source"`
-	Framework  string    `json:"framework"`
-	TotalTests int       `json:"total_tests"`
-	Passed     int       `json:"passed"`
-	Failed     int       `json:"failed"`
-	Skipped    int       `json:"skipped"`
-	Errored    int       `json:"errored"`
-	DurationMs int64     `json:"duration_ms"`
-	RawJSON    string    `json:"raw_json"`
-	Timestamp  time.Time `json:"timestamp"`
-	CreatedAt  time.Time `json:"created_at"`
-}
-
-type TestFailureRecord struct {
-	ID               string    `json:"id"`
-	ReportID         string    `json:"report_id"`
-	TestName         string    `json:"test_name"`
-	Classname        string    `json:"classname"`
-	Severity         string    `json:"severity"`
-	FailureMessage   string    `json:"failure_message"`
-	StackTrace       string    `json:"stack_trace"`
-	ErrorFingerprint string    `json:"error_fingerprint"`
-	Duration         int64     `json:"duration_ms"`
-	Timestamp        time.Time `json:"timestamp"`
-	CreatedAt        time.Time `json:"created_at"`
-}
-
-type ErrorFingerprintRecord struct {
-	Fingerprint     string    `json:"fingerprint"`
-	NormalizedTrace string    `json:"normalized_trace"`
-	FirstSeen       time.Time `json:"first_seen"`
-	LastSeen        time.Time `json:"last_seen"`
-	OccurrenceCount int       `json:"occurrence_count"`
-}
+import "fmt"
 
 func Migrate(provider Provider) error {
 	db := provider.GetDB()
